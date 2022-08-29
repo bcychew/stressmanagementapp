@@ -1,0 +1,85 @@
+{% extends 'default/base.html' %}
+
+{% block content %}
+<!-- url for post-list-->
+<div class = "container">
+    <div class="row mt-3">
+        <div class = "col-md-5 col-sm-6">
+            <a href = "{% url 'post-list' %}" class = "btn btn-light"> Return to feed </a>
+        </div>
+    </div>
+    <!--  shows profile image with a round circle of specific height and width-->
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class = "card shadow-sm col-md-5 col-sm-12 border-bottom pt-3 px-5">
+            <img src = "{{profile.image.url}}" class = "rounded-circle" width = "80" height = "80" />
+            
+            {% if profile.name %}<!-- iif the user has a profile name-->
+            <h3 class = "py-4">{{ profile.name }}</h3>
+                <span>
+                    <!-- if the user accessing the profile is the owner of the profile, show a button that links to editing the profile -->
+                    {% if request.user == user %}
+                        <a href = "{% url 'profile-edit' profile.pk %}" style="color: #0000FF"><i class = "far fa-edit">
+                        </i></a>
+                    {% endif %} 
+                </span>
+                {% else %}
+                <h3>{{ user.username }} <!-- if there's no profile name-->
+                    <span>
+                        {% if request.user == user %} <!-- if the user accessing the profile is the owner of the profile, show a button that links to editing the profile -->
+                            <a href="{% url 'profile-edit' profile.pk %}" style = "color: #0000FF"><i class = "far fa-edit">
+                            </i></a>
+                        {% endif %} 
+                    </span>
+                </h3>
+                {% endif %}
+            </h3>
+  <!-- if the field exists: show it in the profile-->
+            {% if profile.bio %} 
+            <p>About me: {{ profile.bio}}</p>
+            {% endif %} 
+<!-- if the field exists: show it in the profile-->
+            {% if profile.birth_date %} 
+            <p>Birth date: {{ profile.birth_date }}</p>
+            {% endif %} 
+<!-- if the field exists: show it in the profile-->
+            {% if profile.location %} 
+            <p>Location: {{ profile.location }}</p>
+            {% endif %}
+       <!-- show friend count, click to see friendlist details-->     
+            <div class = "mb-3">
+                <a href = "{% url 'friendlist' profile.pk %}" class = "post-link">Friends: {{ friend_count }}</a>
+                <!-- users cannot friend themselves so if user is the profile owner, you don't see the unfriend button-->
+                {% if user == request.user %} 
+                {% else %} 
+                {% if are_friends %} <!-- if user and profile user are friends, the unfriend button can be clicked to submit a post form to unfriend-->
+                <form method = "POST" action = "{% url 'unfriend' profile.pk %}">
+                    {% csrf_token %} <!-- csrf token to prevent csrf attacks-->
+                    <button class="btn btn-outline-danger" type="submit">Unfriend</button>
+                </form>
+                {% else %} <!-- else if user and profile user are not friends, the add friend button can be clicked to add the user as friend-->
+                <form method="POST" action="{% url 'add-as-friend' profile.pk %}"></form>
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success" type="submit">Add Friend</button>
+                </form>    
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- show author name and image, can redirect to profile upon clicking author name-->
+    {% for post in posts %}
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <p><a style="text-decoration: none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}</p>
+            <div class="position-relative">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class = "post-image" />
+                {% endif %} 
+                <p>{{ post.body }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'default/base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<div class = "container">
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <h5>Post below</h5>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <!-- add enctype = multipart/form-data to handle image files--> <!-- POST type form-->
+            <form method = 'POST' enctype = "multipart/form-data">
+                {% csrf_token %} <!-- csrf token to prevent csrf attacks for security purposes-->
+                {{ form | crispy }} <!-- django crispy forms for -->
+                <div class = "d-grid gap-2">
+                    <button class = "btn btn-success mt-3">Submit</button> <!-- click to submit POST request-->
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- for each post, add link to author profile under the author username, and showing their profile image-->
+    {% for post in post_list %}
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 ">
+            <p><a href="{% url 'profile' post.author.profile.pk %}">
+                <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.image.url }}" /></a>
+                <a style="text-decoration: none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}</p>
+            <div class="position-relative">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class = "post-image" />
+                {% endif %}    
+                <p>{{ post.body }}</p> <!-- add post body with text-->
+                <a href ="{% url 'post-detail' post.pk %}" class = "stretched-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <div  class="d-flex flex-row">
+                <form method="POST" action="{% url 'like' post.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn" type="submit">
+                        <i class="fa-solid fa-heart"> 
+                            <span>{{ post.likes.all.count }}</span>
+                        </i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    {% endfor %}
+</div>
+
+{% endblock content %}

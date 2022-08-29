@@ -1,0 +1,66 @@
+<div class="container">  
+<nav class="navbar navbar-expand-lg navbar-light">
+    
+    <div class="container-fluid"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" 
+        {% if user.is_authenticated %}
+        href="{% url 'post-list' %}"
+        {% else %}
+        href="{% url 'index' %}"
+        {% endif %}>
+      <!-- if the user is authenticated or logged in, the user can view the post-list and index links above-->
+      <i class="fa-solid fa-heart"></i> Better Stress Management</a>
+      
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'music' %}"><i class="fa-solid fa-music"></i><strong> Music player</strong></a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learn' %}"><i class="fa-solid fa-book-open-reader"></i> <strong> Learn</strong></a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'quiz' %}"><i class="fa-solid fa-user-pen"></i></i> <strong> Assess yourself</strong></a>
+          </li>
+      {% endif %}
+      
+    <!-- <h6> Learn about stress management </h6> -->
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+  
+        <form class="d-flex" method="GET" action = "{% url 'search-user' %}">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+                <button style="border: none; background-color: transparent; box-shadow: none" type="submit"><i class="fas fa-search"></i></button>
+                <!-- user search box -->
+            </div>
+        </form>
+       
+
+        <!-- if the user is logged in and authenticated, he can view his profile and logout-->
+        {% if user.is_authenticated %}
+        <div class = "nav-item dropdown">
+                <a class = "nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role = "button" aria-expanded = "false"><i class = "fas fa-user"></i></a>
+                <ul class = "dropdown-menu">
+                    <li><a class = "dropdown-item" href = "{% url 'profile' user.profile.pk %}">Profile</a> </li>
+                    <li><a class = "dropdown-item" href = "{% url 'account_logout' %}">Logout</a> </li>
+                </ul>
+        </div>
+        <!-- mail icon for chat-->
+        
+        <div class="nav-item inbox-icon-container">
+          <a href="{% url 'mail' %}" class="inbox-icon"><i class="far fa-paper-plane"></i></a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</nav>
+</div>  

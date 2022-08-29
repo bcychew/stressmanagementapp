@@ -1,0 +1,38 @@
+{% extends 'default/base.html' %}
+<!-- show only if authenticated-->
+{% block content %} 
+<div class = "music player" align = "center">
+  <h1>Music Player</h1>
+  You can mix and play the sounds of nature here as you desire to aid in your relaxation~
+  <p></p>
+  <br>
+
+  <div class = "waves">
+      <h3><i class="fa-solid fa-house-tsunami"></i>Wave</h3>
+      <audio controls loop>
+          <source src="/media/audio/waves.ogg" type="audio/ogg">
+          <source src="/media/audio/waves.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+  </div>
+
+  <div class = "wind">
+      <h3><i class="fa-solid fa-wind"></i>Wind</h3>
+      <audio controls loop>
+          <source src="/media/audio/wind.ogg" type="audio/ogg">
+          <source src="/media/audio/wind.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+  </div>
+
+  <div class = "rain">
+    <h3><i class="fa-solid fa-cloud-showers-heavy"></i>Rain</h3>
+    <audio controls loop>
+        <source src="/media/audio/rain.ogg" type="audio/ogg">
+        <source src="/media/audio/rain.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+</div>
+
+</div>
+{% endblock content %}
