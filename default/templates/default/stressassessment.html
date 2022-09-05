@@ -1,0 +1,107 @@
+{% extends 'default/base.html' %}
+<!-- show only if authenticated-->
+{% block content %} 
+<div class = "assessment" align = "center">
+    <h1> Stress Assessment</h1><br>
+    <div class="preamble">
+    This quiz is designed to assess your stress levels based on common symptoms of stress.<br>
+    A set of choices will be given per question. <br>
+    Please select the option that best fits your circumstances based on your experiences in the past 30 days.<br>
+    </div>    
+
+    <div class="disclaimer">
+    This quiz is not meant to replace a professional medical diagnosis. <br>
+    Seek medical advice if you need to.
+    </div>
+    <br>
+
+    <p>1. Do you often think that there's no meaning in life?</p> 
+    <input type="radio" name="question1">No<br>  
+    <input type="radio" name="question1" id = "stress1">Yes<br>  
+
+    <p>2. Do you find yourself feeling overwhelmed at times?</p>  
+    <input type="radio" name="question2">No<br>  
+    <input type="radio" name="question2" id = "stress2">Yes<br>  
+
+    <p>3. Do you find yourself being easily irritated by trivial happenings?</p> 
+    <input type="radio" name="question3">No<br>  
+    <input type="radio" name="question3" id = "stress3">Yes<br>  
+
+    <p>4. Do you experience headaches often?</p> 
+    <input type="radio" name="question4">No<br>  
+    <input type="radio" name="question4" id = "stress4">Yes<br>  
+
+    <p>5. Do you feel happy more often than not?</p>  
+    <input type="radio" name="question5" id = "stress5">No<br>  
+    <input type="radio" name="question5">Yes<br>  
+
+    <p>6. Do you feel nervous or anxious often?</p>  
+    <input type="radio" name="question6">No<br>  
+    <input type="radio" name="question6" id = "stress6">Yes<br>  
+
+    <p>7. Have you often felt that you were unable to cope with matters in life?</p>  
+    <input type="radio" name="question7">No<br>  
+    <input type="radio" name="question7" id = "stress7">Yes<br>  
+
+    <p>8. Do you often encounter difficulty sleeping?</p>  
+    <input type="radio" name="question8">No<br>  
+    <input type="radio" name="question8" id = "stress8">Yes<br>  
+
+    <p>9. Do you find it hard to breathe at times?</p>  
+    <input type="radio" name="question9">No<br>  
+    <input type="radio" name="question9" id = "stress9">Yes<br>  
+
+    <p>10. Do you find it harder to recover from being upset?</p>  
+    <input type="radio" name="question10">No<br>  
+    <input type="radio" name="question10" id = "stress10">Yes<br>  
+
+    <input type="submit" value="Submit" onclick = "result()">
+</form>
+
+</div>
+
+<script type = "text/javascript">
+    function result() {
+        var score = 0;
+        if(document.getElementById('stress1').checked){
+            score++;
+        }
+        if(document.getElementById('stress2').checked){
+            score++;
+        }
+        if(document.getElementById('stress3').checked){
+            score++;
+        }
+        if(document.getElementById('stress4').checked){
+            score++;
+        }
+        if(document.getElementById('stress5').checked){
+            score++;
+        }
+        if(document.getElementById('stress6').checked){
+            score++;
+        }
+        if(document.getElementById('stress7').checked){
+            score++;
+        }
+        if(document.getElementById('stress8').checked){
+            score++;
+        }
+        if(document.getElementById('stress9').checked){
+            score++;
+        }
+        if(document.getElementById('stress10').checked){
+            score++;
+        }
+
+        if(score>7){
+            alert("You are acutely stressed. Try talking to people about it, and engage with the Learn and Music player sections to learn methods to alleviate your stress levels. If you continue to experience high stress, seek medical advice if necessary.")
+        }else if(score >5 && score <8){
+            alert("You are moderately stressed. Try relieving your stress by learning new stress management methods and applying them from the Learn and Music player sections.")
+        } 
+        else{
+            alert("Your stress levels are low. ")
+        }
+    }
+</script>
+{% endblock content %}

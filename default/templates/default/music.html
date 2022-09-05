@@ -1,9 +1,14 @@
 {% extends 'default/base.html' %}
 <!-- show only if authenticated-->
 {% block content %} 
-<div class = "music player" align = "center">
-  <h1>Music Player</h1>
-  You can mix and play the sounds of nature here as you desire to aid in your relaxation~
+
+
+
+<body>
+
+<div class = "music mixer" align = "center" >
+  <h1>Music Mixer</h1>
+  <h5><i>Mix and play the sounds here as you desire to aid in your relaxation~</i></h5>
   <p></p>
   <br>
 
@@ -32,7 +37,36 @@
         <source src="/media/audio/rain.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
       </audio>
-</div>
+  </div>
+
+  <div class = "fire">
+    <h3><i class="fa-solid fa-fire"></i>Fire</h3>
+    <audio controls loop>
+        <source src="/media/audio/fire.ogg" type="audio/ogg">
+        <source src="/media/audio/fire.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+  </div>
+
+  <div class = "thunder">
+    <h3><i class="fa-solid fa-cloud-bolt"></i>Thunder</h3>
+    <audio controls loop>
+        <source src="/media/audio/thunder.ogg" type="audio/ogg">
+        <source src="/media/audio/thunder.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+  </div>
+
+  <div class = "car">
+    <h3><i class="fa-solid fa-car-side"></i>Car</h3>
+    <audio controls loop>
+        <source src="/media/audio/car.ogg" type="audio/ogg">
+        <source src="/media/audio/car.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+  </div>
 
 </div>
+
+</body>
 {% endblock content %}
