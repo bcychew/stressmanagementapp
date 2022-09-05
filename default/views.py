@@ -10,13 +10,8 @@ class Music(View):#for get/post
     def get(self, request, *args, **kwargs):#get request
         return render(request, 'default/music.html')
 
-class Learn(View):#for get/post
+class StressAssessment(View):#for get/post
     def get(self, request, *args, **kwargs):#get request
-        return render(request, 'default/learn.html')
-
-class Quiz(View):#for get/post
-    def get(self, request, *args, **kwargs):#get request
-        return render(request, 'default/stressquiz.html')
-
+        return render(request, 'default/stressassessment.html')
 
 
