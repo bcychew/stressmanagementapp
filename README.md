@@ -13,7 +13,7 @@ To run the code:
 3. Activate your virtual environment based on your operating system and application used
 4. Install the required libraries as per the requirements.txt file attached inside with the command:
 pip install -r requirements.txt
-5. Finally, change directories to "venv/fyp/stressmanagementapp" (assuming venv as the virtual environment directory name) and run the code with the command: "python manage.py runserver", following by opening the link: "http://127.0.0.1:8000/"
+5. Finally, change directories to "venv/stressmanagementapp-main" (assuming venv as the virtual environment directory name) and run the code with the command: "python manage.py runserver", followed by opening the link: "http://127.0.0.1:8000/"
 
 That is all.
 
