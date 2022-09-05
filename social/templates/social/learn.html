@@ -1,0 +1,91 @@
+{% extends 'default/base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<!-- show only if authenticated-->
+
+<div align = "center" class = "learn">
+    <h1>Learn</h1>
+    <h5>Access helpful resources here and learn new knowledge and techniques to manage your stress! </h5>
+    <br>
+
+    <h3>General tips for reducing stress</h3>
+    
+    <b><li>Exercise</li></b>
+    -produces endorphins, hormones that help you relax and improves your mood
+    <b><li>Meditate</li></b>
+    -focus your attention on your breath, and eliminate unnecessary worries that are clouding your mind and causing you stress
+    <b><li>Sleep</li></b>
+    -sleep 7-8 hours a day to ensure cortisol levels stay low (cortisol is the hormone that induces stress)
+    <b><li>Journal</li></b>
+    -pen down your worries to gain clarity
+    
+    <h3>Articles on stress management</h3>
+    <strong>
+    <a href = "https://www.health.qld.gov.au/news-events/news/how-to-reduce-stress-right-now">5 Ways to reduce stress</a><br>
+    <a href = "https://www.cdc.gov/violenceprevention/about/copingwith-stresstips.html">Coping with stress</a><br>
+    <a href = "https://www.rachelhill.co.nz/blog/the-5-stages-of-stress">The 5 Stages of Stress</a><br>
+    <a href = "https://www.healthline.com/nutrition/stress-relieving-foods"> 18 Terrific foods to help relieve stress</a>
+    </strong>
+    <h3>Videos on stress management</h3> <!-- consider using unordered or ordered list or maybe use video-->
+    Click the hyperlink on the titles to direct you to watch on the link itself if unable to watch the embedded videos <br>
+    <h5>
+    <a href = "https://www.youtube.com/watch?v=86m4RC_ADEY">Guided meditation to reduce stress</a> <br>
+    <iframe width="960" height="540" src="https://www.youtube.com/embed/86m4RC_ADEY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <a href = "https://www.youtube.com/watch?v=Wemm-i6XHr8">6 daily habits to reduce stress</a> <br>
+    <iframe width="960" height="540" src="https://www.youtube.com/embed/o18I23HCQtE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <a href = "https://www.youtube.com/watch?v=DKOGuQJCxr8">How does mindfulness reduce stress</a> <br>
+    <iframe width="960" height="540" src="https://www.youtube.com/embed/DKOGuQJCxr8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <a href = "https://www.youtube.com/watch?v=CQjGqtH-2YI">2:1 breathing to reduce stress</a><br>
+    <iframe width="960" height="540" src="https://www.youtube.com/embed/CQjGqtH-2YI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    </h5>
+
+    <h3>Other videos that might be helpful for stress management</h3>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZuRLOlB4N8U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/79kpoGF8KWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/LOUfxONzH2Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+</div>
+
+
+<div class = "container">
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <h5>Give us feedback on the learn feature to help us improve!</h5>
+            <h6>You can provide us with resources you find helpful, and give us feedback on what works for you! We'll add it into the feature if the response is good. Tell us all about it in the comments. We always take your feedback into consideration! :)</h6>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class = "col-md-5 col-sm-12 border-bottom">
+            <!-- add enctype = multipart/form-data to handle image files--> <!-- POST type form-->
+            <form method = 'POST'>
+                {% csrf_token %} <!-- csrf token to prevent csrf attacks for security purposes-->
+                {{ form | crispy }} <!-- django crispy forms for -->
+                <div class = "d-grid gap-2">
+                    <button class = "btn btn-success mt-3">Submit</button> <!-- click to submit POST request-->
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- for each post, add link to author profile under the author username, and showing their profile image-->
+    {% for post in learn_post_list %}
+    <div class="row justify-content-center mt-3">
+        <div class = "col-md-5 col-sm-12 ">
+            <p><a href="{% url 'profile' post.author.profile.pk %}">
+                <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.image.url }}" /></a>
+                <a style="text-decoration: none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}</p>
+            <div class="position-relative">  
+                <p>{{ post.body }}</p> <!-- add post body with text-->
+                <a href ="{% url 'learn-post-detail' post.pk %}" class = "stretched-link"></a>
+            </div>
+        </div>
+    </div>  
+
+    
+    {% endfor %}
+</div>
+
+{% endblock content %}
