@@ -1,4 +1,4 @@
-# stressreliefapp
+# stressmanagementapp
 
 This is the web application for Computer Science Final Project CM 3070.
 
